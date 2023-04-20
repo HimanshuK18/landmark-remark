@@ -1,15 +1,15 @@
 .table-container {
-    width: 25%; /* Set width to 25% of the page */
-    border: 1px solid black; /* Add border */
+    width: 25%; 
+    
   }
 
   .container table {
-    width: 100%; /* Set table width to 100% of container */
-    border-collapse: collapse; /* Collapse table borders */
+    width: 100%; 
+    border-collapse: collapse; 
   }
 
   .container th, .container td {
-    border: 1px solid black; /* Add cell borders */
-    padding: 8px; /* Add padding to cells */
-    text-align: left; /* Align text to left in cells */
+    border: 1px solid black; 
+    padding: 8px; 
+    text-align: left; 
   }

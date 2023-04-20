@@ -31,8 +31,8 @@ const App: React.FC = () => {
   }, []);
   return (<>
     <title>Landmark Remark</title>
-    <div style={{ height: "100%", width: "100%" }}>
-      <MapComponent notes={notesSaved} currentLocation={currentLocation} onSaveNote={() => { return }}></MapComponent>
+    <div style={{ height: "100%", width: "100%" }} data-testid='map-component'>
+      <MapComponent notes={notesSaved} currentLocation={currentLocation}></MapComponent>
     </div>
   </>);
 }

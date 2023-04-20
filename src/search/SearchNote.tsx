@@ -46,7 +46,7 @@ const SearchComponent: React.FC = () => {
 
 
   return (<>
-    <div className="table-container">
+    <div className="table-container" data-testid='note-search'>
       <table className="responsive-table">
         <thead>
           <tr>
@@ -55,13 +55,13 @@ const SearchComponent: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr style={{ width: "100%" }}>
             <td>
               <input
                 type="text"
                 value={inputNote}
                 onChange={handleNoteChange}
-                placeholder="Enter Note"
+                placeholder="Search Note"
               />
             </td>
             <td>
@@ -69,7 +69,7 @@ const SearchComponent: React.FC = () => {
                 type="text"
                 value={inputUserName}
                 onChange={handleUserNameChange}
-                placeholder="Enter Note"
+                placeholder="Search User Name"
               />
             </td>
           </tr>

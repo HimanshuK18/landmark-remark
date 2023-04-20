@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 
-type MarkerProps = {
+export type MarkerProps = {
     lat: number;
     lng: number;
     text: string;
@@ -29,12 +29,12 @@ const Marker: React.FC<MarkerProps> = ({ text, username, markerType }) => {
     };
 
     return (<>
-        <div>
+        <div data-testid='current-map-marker' >
             {markerType === 'currentType' ? (
                 <div style={circleStyleCurrent}>
                 </div>
             ) : (
-                <div
+                <div data-testid='note-map-marker'
                     style={noteStyle}
                     title={`Username: ${username}\nNote: ${text}`}>
                     {text}
