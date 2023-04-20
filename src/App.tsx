@@ -1,26 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import MapComponent from './map/Map';
-import { NoteContextProvider } from './state/noteState';
+import { NotesContext } from './state/noteState';
 
 
 const App: React.FC = () => {
   let [currentLocation, setCurrentLocation] = useState({
-    lat: -37.8136,
-    lng: 144.96
+    lat: 0,
+    lng: 0
   });
-const notesD =[{
-  id :1,
-  lat: -37.94,
-  lng: 144.72,
-  text: "Rani",
-  username: "stringnn"
-},{
-  id :2,
-  lat: -37.8,
-  lng: 144.7,
-  text: "Himanshu",
-  username: "stsssringnn"
-}];
+
+  const { notesSaved } = useContext(NotesContext);
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -42,10 +31,9 @@ const notesD =[{
   }, []);
   return (<>
     <title>Landmark Remark</title>
-    <div className="App">
-      <NoteContextProvider>
-        <MapComponent notes={notesD} currentLocation={currentLocation} onSaveNote={() => { return }}></MapComponent>
-      </NoteContextProvider></div>
+    <div style={{ height: "100%", width: "100%" }}>
+      <MapComponent notes={notesSaved} currentLocation={currentLocation} onSaveNote={() => { return }}></MapComponent>
+    </div>
   </>);
 }
 
