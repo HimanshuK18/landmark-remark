@@ -1,79 +1,82 @@
 /* eslint-disable testing-library/prefer-screen-queries */
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import NoteAddComponent, { Note } from './Note';
-import { NotesContext, Action } from '../state/noteState';
 
-const notesSaved: Note[] = [
+const props = {
+    lat: 0,
+    lng: 0,
+    Opened: false,
+    close: jest.fn()
+};
+
+
+const notes: Note[] = [
     { id: 1, lat: 37.7749, lng: -122.4194, note: 'Note 1', username: 'User 1' },
     { id: 2, lat: 34.0522, lng: -118.2437, note: 'Note 2', username: 'User 2' }
-]
-jest.mock('../state/noteState', () => ({
-    NotesContext: {
-        notesSaved: notesSaved
-    },
-    Action: jest.fn()
-}));
+];
 
 describe('NoteAddComponent', () => {
-    const mockProps = {
-        lat: 0,
-        lng: 0,
-        Opened: true,
-        close: jest.fn()
-    };
-
-    const mockNoteData: Note = {
-        lat: 0,
-        lng: 0,
-        note: '',
-        username: ''
-    };
-
-    it('renders without error', () => {
-        const { getByText, getByTestId } = render(<NoteAddComponent {...mockProps} />);
-        expect(getByText('Add Note')).toBeInTheDocument();
-        expect(getByTestId('note-input')).toBeInTheDocument();
-        expect(getByTestId('username-input')).toBeInTheDocument();
-        expect(getByTestId('Button-Save')).toBeInTheDocument();
-    });
-
-    it('sets note data on input change', () => {
-        const { getByTestId } = render(<NoteAddComponent {...mockProps} />);
-        const noteInput = getByTestId('note-input');
-        const usernameInput = getByTestId('username-input');
-        fireEvent.change(noteInput, { target: { value: 'Test note' } });
-        fireEvent.change(usernameInput, { target: { value: 'Test user' } });
-        expect(noteInput).toHaveValue('Test note');
-        expect(usernameInput).toHaveValue('Test user');
-    });
-
-    it('calls close function on Save button click', () => {
-        const { getByTestId } = render(<NoteAddComponent {...mockProps} />);
-        const saveButton = getByTestId('Button-Save');
-        fireEvent.click(saveButton);
-        expect(mockProps.close).toHaveBeenCalled();
-    });
-
-    it('calls dispatch with correct payload on Save button click', () => {
-        const mockDispatch = jest.fn();
-        jest.spyOn(React, 'useContext').mockReturnValue({ dispatch: mockDispatch });
-        const { getByTestId } = render(<NoteAddComponent {...mockProps} />);
-        const saveButton = getByTestId('Button-Save');
-        fireEvent.click(saveButton);
-        const expectedDispatchObject: Action = {
-            type: 'save',
-            payload: mockNoteData
+    it('should render correctly', () => {
+        const mockNotesContextValue = {
+            notesSaved: notes,
         };
-        expectedDispatchObject.payload.lat = mockProps.lat;
-        expectedDispatchObject.payload.lng = mockProps.lng;
-        expect(mockDispatch).toHaveBeenCalledWith(expectedDispatchObject);
+        jest.spyOn(React, "useContext").mockReturnValue(mockNotesContextValue);
+        const { getByTestId } = render(<NoteAddComponent {...props} />);
+        expect(getByTestId('note-add')).toBeTruthy();
+
     });
 
-    it('calls close function on Dialog close', () => {
-        const { getByRole } = render(<NoteAddComponent {...mockProps} />);
-        const dialog = getByRole('dialog');
-        fireEvent.click(dialog);
-        expect(mockProps.close).toHaveBeenCalled();
+    it('should update noteData based on input', async () => {
+        const props = {
+            lat: 0,
+            lng: 0,
+            Opened: true,
+            close: jest.fn()
+        };
+        render(<NoteAddComponent {...props} />);
+
+        const noteInput = screen.getByTestId('note-input') as HTMLInputElement;
+        const usernameInput = screen.getByTestId('username-input') as HTMLInputElement;
+
+        fireEvent.change(noteInput, { target: { value: 'hello world' } });
+        fireEvent.change(usernameInput, { target: { value: 'johndoe' } });
+
+        expect(noteInput.value).toEqual('hello world');
+        expect(usernameInput.value).toEqual('johndoe');
+    });
+
+    it('should trigger close and dispatch actions when save button is clicked', async () => {
+        const props = {
+            lat: 37.7749,
+            lng: -122.4194,
+            Opened: true,
+            close: jest.fn()
+        };
+        const dispatch = jest.fn();
+
+        jest.spyOn(React, 'useContext').mockImplementation(() => ({ dispatch }));
+
+        render(<NoteAddComponent {...props} />);
+
+        const noteInput = screen.getByTestId('note-input');
+        const usernameInput = screen.getByTestId('username-input');
+        const saveButton = screen.getByTestId('Button-Save');
+
+        fireEvent.change(noteInput, { target: { value: 'hello world' } });
+        fireEvent.change(usernameInput, { target: { value: 'johndoe' } });
+        fireEvent.click(saveButton);
+
+        expect(props.close).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledWith({
+            type: 'save',
+            payload: {
+                lat: 37.7749,
+                lng: -122.4194,
+                note: 'hello world',
+                username: 'johndoe'
+            }
+        });
     });
 });

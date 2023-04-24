@@ -22,25 +22,27 @@ const Marker: React.FC<MarkerProps> = ({ text, username, markerType }) => {
         position: "absolute",
         transform: "translate(-50%, -50%)",
         background: "white",
-        borderRadius: "50%",
-        padding: "5px",
         color: "black",
-        fontWeight: "bold"
+        fontWeight: "bold",
+        display: "inline-block",
+        padding: "10px",
+        borderRadius: "5px",
+        boxSizing: "border-box",
     };
 
     return (<>
-        <div data-testid='current-map-marker' >
+        <div data-testid='current-map-marker'>
             {markerType === 'currentType' ? (
                 <div style={circleStyleCurrent}>
                 </div>
             ) : (
                 <div data-testid='note-map-marker'
                     style={noteStyle}
-                    title={`Username: ${username}\nNote: ${text}`}>
-                    {text}
+                    title={`username- ${username}note- ${text}`}>
+                    {username}<br/>Note: {text}
                 </div>
             )}
-        </div>
+-        </div>
     </>);
 }
 

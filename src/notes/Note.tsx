@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NotesContext, Action } from '../state/noteState';
-import Dialog from '@mui/material/Dialog';
+import { Dialog } from '@material-ui/core';
 import './note.css';
 
 
@@ -11,7 +11,7 @@ type Note = {
   note: string;
   username: string;
 }
-type NoteProps = {
+export type NoteProps = {
   lat: number,
   lng: number,
   Opened: boolean,
@@ -58,7 +58,7 @@ const NoteAddComponent: React.FC<NoteProps> = (props: NoteProps) => {
 
   return (<>
     <Dialog open={dialogOpen} onClose={handleClose}>
-      <div className="add-note-container">
+      <div className="add-note-container" data-testid='note-add'>
         <h3 className="add-note-title">Add Note</h3>
         <div className="form-container">
           <div className="form-row">

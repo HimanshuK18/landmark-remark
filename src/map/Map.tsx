@@ -37,8 +37,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
                         key={3}
                         lat={currentLocation.lat}
                         lng={currentLocation.lng}
-                        text={"Anahita"}
-                        username={"Some Nate"}
+                        text={""}
+                        username={""}
                         markerType={"currentType"}
                     />
 
