@@ -4,6 +4,7 @@ import { Note } from '../notes/Note';
 import NoteAddComponent from '../notes/Note';
 import Marker from '../Marker/Marker';
 import SearchComponent from '../search/SearchNote';
+import { useErrorBoundary } from "react-error-boundary";
 import './Map.css';
 
 
@@ -17,12 +18,17 @@ const MapComponent: React.FC<MapComponentProps> = ({
     notes,
     currentLocation
 }) => {
+    const { showBoundary } = useErrorBoundary();
     const [open, setOpen] = useState(false);
     const addnew = () => {
+       
         setOpen(true);
     };
     const closeDialog = () => {
         setOpen(false);
+    }
+    const showError = () => {
+        showBoundary("i am the error");
     }
 
     return (
@@ -59,6 +65,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
                     <SearchComponent></SearchComponent></div>
                 <div data-testid="add-note-button">
                     <button onClick={addnew}>Add Note</button>
+                </div>
+                <div data-testid="add-note-button">
+                    <button onClick={showError}>Erro Fallback</button>
                 </div>
                 <NoteAddComponent close={closeDialog} lat={currentLocation.lat} lng={currentLocation.lng} Opened={open}></NoteAddComponent>
             </div>
