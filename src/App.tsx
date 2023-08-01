@@ -10,9 +10,9 @@ const App: React.FC = () => {
     lat: 0,
     lng: 0
   });
-const logErrorToService = (error: any, info: any) => {
-  console.log("this erro posted by me " +error, info);
-}
+  const logErrorToService = (error: any, info: any) => {
+    console.log("this erro posted by me " + error, info);
+  }
   const { notesSaved } = useContext(NotesContext);
   useEffect(() => {
     if (navigator.geolocation) {
@@ -35,18 +35,18 @@ const logErrorToService = (error: any, info: any) => {
   }, []);
   return (<>
     <title>Landmark Remark</title>
-    <ErrorBoundary
-      FallbackComponent={MyFallbackComponent}
-      onReset={() => {
-        // reset the state of your app here
-      }}
-      resetKeys={['someKey']}
-      onError={logErrorToService}
-    >
-    <div style={{ height: "100%", width: "100%" }} data-testid='map-component'>
-        <MapComponent notes={notesSaved} currentLocation={currentLocation}></MapComponent>
-    </div>
- </ErrorBoundary>
+      <ErrorBoundary
+        FallbackComponent={MyFallbackComponent}
+        onReset={() => {
+          // reset the state of your app here
+        }}
+        resetKeys={['someKey']}
+        onError={logErrorToService}
+      >
+        <div style={{ height: "100%", width: "100%" }} data-testid='map-component'>
+          <MapComponent notes={notesSaved} currentLocation={currentLocation}></MapComponent>
+        </div>
+      </ErrorBoundary>
   </>);
 }
 

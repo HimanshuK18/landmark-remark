@@ -1,14 +1,17 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ApolloProvider } from '@apollo/client';
 import './index.css';
-import App from './App';
 import { NoteContextProvider } from './state/noteState';
+import SetRoutes from "./routes/routes";
+import { client } from './ApolloClient/apolloClient';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(<>
-  <NoteContextProvider>
-    <App />
-  </NoteContextProvider>
+  <ApolloProvider client={client}>
+    <NoteContextProvider>
+      <SetRoutes />
+    </NoteContextProvider>
+  </ApolloProvider>
 </>);

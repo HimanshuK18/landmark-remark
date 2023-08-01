@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { NotesContext, Action } from '../state/noteState';
-import { Dialog } from '@material-ui/core';
+import Dialog from '@mui/material/Dialog';
 import './note.css';
 
 
