@@ -9,10 +9,13 @@ const notes: Note[] = [
   { id: 2, lat: 34.0522, lng: -118.2437, note: 'Note 2', username: 'User 2' }
 ];
 const currentLocation = { lat: 37.7749, lng: -122.4194 };
+const useErrorBoundary = jest.fn();
+
 
 const setOpen = jest.fn();
 beforeEach(() => {
   setOpen.mockClear();
+  useErrorBoundary.mockReturnValue({ showBoundary: true });
 });
 
 describe('MapComponent', () => {

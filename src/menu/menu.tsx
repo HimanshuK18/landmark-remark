@@ -35,8 +35,11 @@ export default function BasicMenu() {
                 }}
             >
                 <MenuItem component={Link} to="/" onClick={handleClose}>Home</MenuItem>
+                <MenuItem component={Link} to="/user/223" onClick={handleClose}>User</MenuItem>
                 <MenuItem component={Link} to="/tictac" onClick={handleClose}>Tic Tac Toe</MenuItem>
                 <MenuItem component={Link} to="/grid" onClick={handleClose}>Grid</MenuItem>
+                <MenuItem component={Link} to="/chat" onClick={handleClose}>Chat</MenuItem>
+                <MenuItem component={Link} to="/ref" onClick={handleClose}>Ref DOM</MenuItem>
                 <MenuItem component={Link} to="/griddata" onClick={handleClose}>Grid GrapgQL</MenuItem>
 
             </Menu>

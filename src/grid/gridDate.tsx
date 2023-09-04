@@ -16,7 +16,6 @@ export const GridData: React.FC = () =>  {
             headerName: 'Image',
             width: 290,
             renderCell: (params) => {
-                console.log(params);
                 return (
                     <>
                         <Avatar src={params.formattedValue} sx={{ width: 56, height: 56 }} />

@@ -21,7 +21,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
     const { showBoundary } = useErrorBoundary();
     const [open, setOpen] = useState(false);
     const addnew = () => {
-       
         setOpen(true);
     };
     const closeDialog = () => {

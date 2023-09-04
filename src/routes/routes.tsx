@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { Routes, Route } from "react-router";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { lazy } from "react";
 import App from '../App';
 import BasicMenu from '../menu/menu';
 import NoPage from "../nopage/NoPage";
 import DataTable from '../grid/grid';
 import { GridData } from '../grid/gridDate';
+import UserComponent from "../components/userComponent";
+import Chat from "../chat/chat";
+import Ref from "../DOM/ref"; 
+import LoginPage from '../login/login';
+import ProtectedRoute from '../components/secureRoute';
 
 
 const TicTacToe = lazy(() => import('../tictactoe/tictactoe'));
@@ -20,12 +24,21 @@ function SetRoutes() {
                 <Route path="/" element={<App />} />
                 <Route path="*" element={<NoPage />} />
                 <Route path="grid" element={<DataTable />} />
+                <Route path="user/:id" Component={UserComponent} />
+                <Route path="chat" Component={Chat} />
+                <Route path="ref" Component={Ref} />
+                <Route path="login" element={<LoginPage />} />
                 <Route path="griddata" element={<GridData />} />
-                <Route path="tictac" element={
-                    <React.Suspense fallback={<>...Loading</>}>
-                        <TicTacToe />
-                    </React.Suspense>
+                {/* Secured routes */}
+
+                <Route path='tictac' element={
+                    <ProtectedRoute>
+                        <React.Suspense fallback={<div>...Loading</div>}>
+                            <TicTacToe />
+                        </React.Suspense>
+                    </ProtectedRoute>
                 } />
+
             </Routes>
         </BrowserRouter>
     </>);

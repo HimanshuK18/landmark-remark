@@ -50,7 +50,6 @@ const NoteAddComponent: React.FC<NoteProps> = (props: NoteProps) => {
 
   const setData = (name: string, value: string) => {
     setNoteDate({ ...noteData, [name]: value });
-    console.log();
   }
   const handleClose = () => {
     setDailogOpen(false);
